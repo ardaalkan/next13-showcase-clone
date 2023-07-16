@@ -1,9 +1,16 @@
-import { CarProps } from "@/types";
-
 export async function fetchCars() {
+  const apiKey = process.env.RAPIDAPI_KEY;
+  const apiHost = process.env.RAPIDAPI_HOST;
+
+  if (!apiKey || !apiHost) {
+    throw new Error(
+      "RAPIDAPI_KEY or RAPIDAPI_HOST is not defined in the environment variables."
+    );
+  }
+
   const headers = {
-    "X-RapidAPI-Key": "666ec9df30msh6a2e708d512b391p1705b9jsn1e1099c8f40c",
-    "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
+    "X-RapidAPI-Key": apiKey,
+    "X-RapidAPI-Host": apiHost,
   };
 
   const response = await fetch(
@@ -32,4 +39,3 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
 
   return rentalRatePerDay.toFixed(0);
 };
-
